@@ -1,9 +1,10 @@
-import {Logger, Module} from '@nestjs/common';
+import {Module} from '@nestjs/common';
 import {ContrivedController} from './controllers/contrived.controller';
 import {EventBusTransportModule} from './event-bus-transport/event.bus.transport.module';
 import {CqrsModule} from '@nestjs/cqrs';
 import {RabbitPublisher} from './event-bus-transport/publishers/rabbit.publisher';
 import {ContrivedEventHandler} from './events/contrived/contrived.event.handler';
+import {RedisPublisher} from "./event-bus-transport/publishers/redis.publisher";
 
 @Module({
     imports: [
@@ -11,6 +12,7 @@ import {ContrivedEventHandler} from './events/contrived/contrived.event.handler'
         EventBusTransportModule.forRoot(
             [
                 RabbitPublisher,
+                RedisPublisher
             ],
             [
                 ContrivedEventHandler,

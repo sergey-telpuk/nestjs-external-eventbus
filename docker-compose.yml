@@ -8,21 +8,21 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile.dev
-    command: npm run start:dev
+    command: npm run start
     tty: true
     ports:
       - 3000:3000
     volumes:
       - ./src/app:/app
-    environment:
-      - NODE_ENV=development
     links:
       - rabbitmq
+      - redis
     depends_on:
       - rabbitmq
+      - redis
 
-  event-service:
-    container_name: nestjs-event-service
+  event-service-rabbit:
+    container_name: nestjs-event-service-rabbit
     restart: always
     build:
       context: ./docker
@@ -30,24 +30,40 @@ services:
     command: npm run start
     tty: true
     volumes:
-      - ./src/event-service:/app
-    environment:
-      - NODE_ENV=development
+      - ./src/event-service-rabbit:/app
     links:
       - rabbitmq
     depends_on:
       - rabbitmq
 
+  event-service-redis:
+    container_name: nestjs-event-service-redis
+    restart: always
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.dev
+    command: npm run start
+    tty: true
+    volumes:
+      - ./src/event-service-redis:/app
+    links:
+      - redis
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    restart: always
+    command: redis-server --requirepass password123
+    environment:
+      - REDIS_PASSWORD=password123
+
   rabbitmq:
     image: rabbitmq:3-management
     restart: always
-    container_name: erp-dev-event-service-rabbitmq
     environment:
       RABBITMQ_ERLANG_COOKIE: SWQOKODSQALRPCLNMEQG
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
-    ports:
-      - ${RABBITMQ_PORT_UI}:15672
-      - ${RABBITMQ_PORT}:5672
     volumes:
       - ./docker/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins

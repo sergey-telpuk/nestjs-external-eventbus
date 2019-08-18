@@ -2,7 +2,7 @@ import {IEventWithTransport} from '../../event-bus-transport/interface/event.wit
 import {Transport} from '../../event-bus-transport/transport.enum';
 
 export class ContrivedEvent implements IEventWithTransport {
-    TRANSPORTS = [Transport.RMQ, Transport.DEF];
+    TRANSPORTS = [Transport.RMQ, Transport.DEF, Transport.REDIS];
 
     constructor(
     ) {}
