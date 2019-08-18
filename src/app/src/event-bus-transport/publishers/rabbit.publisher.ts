@@ -19,7 +19,7 @@ export class RabbitPublisher extends AbstractPublisher {
     })
     client: ClientProxy;
 
-    protected async getClient(pattern: any, data: any) {
+    protected async send(pattern: any, data: any) {
         try {
             await this.client.send(pattern, data).toPromise();
         } catch (e) {

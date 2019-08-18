@@ -20,8 +20,8 @@ export abstract class AbstractPublisher implements IEventPublisher {
             event: event.constructor.name,
         };
 
-        this.getClient(this.PATTERN, data);
+        this.send(this.PATTERN, data);
     }
 
-    protected abstract getClient(pattern: any, data: any): any;
+    protected abstract send(pattern: any, data: any): any;
 }
