@@ -8,7 +8,7 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile.dev
-    command: npm run start
+    command: npm run start:dev
     tty: true
     ports:
       - 3000:3000
@@ -27,7 +27,7 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile.dev
-    command: npm run start:dev
+    command: npm run start
     tty: true
     volumes:
       - ./src/event-service:/app

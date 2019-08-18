@@ -1,7 +1,8 @@
 import {IEvent, IEventPublisher} from '@nestjs/cqrs';
 import {Transport} from './transport.enum';
-import {Logger} from '@nestjs/common';
+import {Injectable, Logger} from '@nestjs/common';
 
+@Injectable()
 export abstract class AbstractPublisher implements IEventPublisher {
     abstract TRANSPORT: Transport;
     abstract PATTERN: string;
@@ -12,14 +13,14 @@ export abstract class AbstractPublisher implements IEventPublisher {
 
     }
 
-    async publish<T extends IEvent>(event: T) {
+    publish<T extends IEvent>(event: T): void {
 
         const data = {
             payload: event,
             event: event.constructor.name,
         };
 
-        await this.getClient(this.PATTERN, data);
+        this.getClient(this.PATTERN, data);
     }
 
     protected abstract getClient(pattern: any, data: any): any;
