@@ -1,0 +1,6 @@
+### RABBITMQ_
+RABBITMQ_URL=amqp://rabbit:rabbit@rabbitmq:5672
+RABBITMQ_QUEUE=event_service_queue
+
+### EVENT_SERVICE
+EVENT_SERVICE_PATTERN=event_bus

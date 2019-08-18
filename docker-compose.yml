@@ -1,0 +1,53 @@
+version: '3.7'
+
+services:
+
+  app:
+    container_name: nestjs-app
+    restart: always
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.dev
+    command: npm run start
+    tty: true
+    ports:
+      - 3000:3000
+    volumes:
+      - ./src/app:/app
+    environment:
+      - NODE_ENV=development
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+
+  event-service:
+    container_name: nestjs-event-service
+    restart: always
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.dev
+    command: npm run start:dev
+    tty: true
+    volumes:
+      - ./src/event-service:/app
+    environment:
+      - NODE_ENV=development
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    container_name: erp-dev-event-service-rabbitmq
+    environment:
+      RABBITMQ_ERLANG_COOKIE: SWQOKODSQALRPCLNMEQG
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    ports:
+      - ${RABBITMQ_PORT_UI}:15672
+      - ${RABBITMQ_PORT}:5672
+    volumes:
+      - ./docker/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins

@@ -1,0 +1,8 @@
+### Mode of running
+MODE_RUNNING=dev #dev|debug
+
+### Rabbit
+RABBITMQ_PORT=56720
+RABBITMQ_USER=rabbit
+RABBITMQ_PASSWORD=rabbit
+RABBITMQ_PORT_UI=8085
