@@ -32,7 +32,7 @@
     "@nestjs/jwt": "^6.1.1",
     "@nestjs/microservices": "^6.5.3",
     "@nestjs/passport": "^6.1.0",
-    "@nestjs/platform-express": "^6.5.2",
+    "@nestjs/platform-express": "^9.2.1",
     "@nestjs/platform-fastify": "^6.5.2",
     "@nestjs/typeorm": "^6.1.2",
     "@nestjsx/api-version": "^0.1.1",
