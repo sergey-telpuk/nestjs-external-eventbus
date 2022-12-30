@@ -56,7 +56,7 @@
     "fastify-swagger": "^2.4.0",
     "grpc": "^1.22.2",
     "moment-timezone": "^0.5.26",
-    "nestjs-i18n": "^3.0.0",
+    "nestjs-i18n": "^10.2.3",
     "nestjs-redis": "^1.2.1",
     "npm": "^6.10.3",
     "ow": "^0.13.2",
